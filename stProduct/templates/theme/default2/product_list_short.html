@@ -1,0 +1,100 @@
+<div id="product_short">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+
+    {assign var='i' value=0}
+    {foreach key=row item=product from=$results} 
+    {assign var='i' value=$i+1}     
+        <tr class="{if $i==2}bg_grey_short{/if}">
+            {if ($show_image)==1}<td class="photo_short" valign="middle"><div class="box_photo_sort"><span></span>{$product.photo}</div></td>{/if}
+
+            {if ($show_code)==1}<td class="code">{$product.code}</td>{/if}
+
+            {if ($show_name)==1}<td class="name">{$product.name}</td>{/if}
+
+            {if ($show_price)==1}
+
+                {if ($product.check_price)!=1}
+
+                    {if $show_discount==1 && $product.discount!=0}
+                        {assign var='show_th_discount' value=1}
+                        <td class="discount"><span>{$product.discount} %</span></td>
+                    {/if}
+                    
+                        {if $price_view=='net_gross'}
+                            <td class="price minor_price">
+                                {$product.price}
+                            </td>
+                            <td class="price major_price">
+                                {$product.price_net}
+                                {if ($show_old_price==1) && ($product.check_old_price==1)}
+                                    <br /><span class="old_price">{$product.old_price_net}</span>
+                                {/if}
+                            </td>
+                        {elseif $price_view=='only_gross'}
+                            <td class="price">
+                                {$product.price}
+                                {if ($show_old_price==1) && ($product.check_old_price==1)}
+                                    <br /><span class="old_price">{$product.old_price}</span>
+                                {/if}
+                            </td>
+                        {elseif $price_view=='only_net'}
+                            <td class="price">
+                                {$product.price_net}
+                                {if ($show_old_price==1) && ($product.check_old_price==1)}
+                                    <br /><span class="old_price">{$product.old_price_net}</span>
+                                {/if}
+                            </td>
+                        {elseif $price_view=='gross_net'}
+                            <td class="price minor_price">
+                                {$product.price_net}
+                            </td>
+                            <td class="price major_price">
+                                {$product.price}
+                                {if ($show_old_price==1) && ($product.check_old_price==1)}
+                                    <br /><span class="old_price">{$product.old_price}</span>
+                                {/if}
+                            </td>
+                        {/if}
+                    
+                    <td class="basket">{if $show_basket==1}{$product.basket}{/if}</td>
+                {/if}
+
+            {/if}
+        </tr>    
+        {if $i == 2}
+            {assign var='i' value=0}
+        {/if}           
+    {/foreach}
+
+    <thead>
+        <tr>
+            <th></th>
+
+            {if ($show_code)==1}
+                <th>{__ text="Kod"}</th>
+            {/if}
+
+            <th>{__ text="Nazwa"}</th>
+
+            {if ($show_th_discount)==1}
+                <th>{__ text="Rabat"}</th>
+            {/if}
+
+            {if $price_view=='net_gross'}
+                <th>{__ text="Brutto"}</th>
+                <th>{__ text="Netto"}</th>
+            {elseif $price_view=='gross_net'}
+                <th>{__ text="Netto"}</th>
+                <th>{__ text="Brutto"}</th>
+            {elseif $price_view=='only_net'}
+                <th>{__ text="Netto"}</th>
+            {elseif $price_view=='only_gross'}
+                <th>{__ text="Brutto"}</th>
+            {/if}
+
+            <th></th>
+        </tr>
+    </thead>
+
+    </table>
+</div>

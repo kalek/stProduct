@@ -1,0 +1,31 @@
+<div id="product_group_new" class="block box roundies box_group">
+    <h3 class="head">
+        {$new_products_title}
+    </h3>
+    <div class="content">
+        {foreach key=row item=product from=$results}
+            {if $row == 0}
+                <div class="full">
+                    {$product.photo}
+                    <div class="st_product_options-color-on-list">{$product.colors}</div>
+                    <div class="product_link">{$product.name}</div>
+                    {if ($product.check_price)!=1}
+                        {if $price_view=='net_gross'}
+                            <div class="price">{__ text="netto"}: <span>{$product.price_net}</span></div>
+                            <div class="minor_price price">({__ text="brutto"}: <span>{$product.price}</span>)</div>
+                        {elseif $price_view=='only_gross'}
+                            <div class="price"><span>{$product.price}</span></div>
+                        {elseif $price_view=='only_net'}
+                            <div class="price">{__ text="netto"}: <span>{$product.price_net}</span></div>
+                        {elseif $price_view=='gross_net'}
+                            <div class="price">{__ text="brutto"}: <span>{$product.price}</span></div>
+                            <div class="minor_price price">({__ text="netto"}: <span>{$product.price_net}</span>)</div>
+                        {/if}
+                    {/if}
+                </div>
+            {else}
+                {$product.name}
+            {/if}
+        {/foreach}
+    </div>    
+</div>            
